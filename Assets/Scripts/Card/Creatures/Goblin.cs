@@ -1,13 +1,23 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 
 public class Goblin : MonoBehaviour, ICard, ICreature {
-    private String name = "Goblin";
+    private String title = "Goblin";
     private float power = 1;
     private float toughness = 1;
 
-    public string GetName() {
-        return name;
+    public CardDatabase.CardType GetCardType() {
+        return CardDatabase.CardType.Creature;
+    }
+
+    public string GetTitle() {
+        return title;
+    }
+
+    public Sprite GetArtAsset() {
+        Sprite mySprite = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Sprites/Goblin.png", typeof(Sprite));
+        return mySprite;
     }
 
     public float GetPower() {

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Drag : MonoBehaviour {
+public class Draggable : MonoBehaviour {
     private bool hover = false;
     private bool mouseDown = false;
     private Vector3 mouseWorldPos;
