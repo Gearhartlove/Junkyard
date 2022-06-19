@@ -9,7 +9,8 @@ public class CardDatabase : MonoBehaviour {
     static CardDatabase() {
         //initialize hash table 
         CardHash = new Dictionary<CardName, Action<GameObject>>() {
-            {CardName.Goblin, (card) => card.AddComponent<Goblin>()}
+            {CardName.Goblin, (card) => card.AddComponent<Goblin>()},
+            {CardName.Grasslands, (card) => card.AddComponent<Grasslands>()},
         };
     }
     
@@ -36,6 +37,7 @@ public class CardDatabase : MonoBehaviour {
     public enum CardName {
         Template,
         Goblin,
+        Grasslands,
         ScrapBomb,
     }
 }

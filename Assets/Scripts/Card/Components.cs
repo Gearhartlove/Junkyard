@@ -39,7 +39,7 @@ public class Components : MonoBehaviour {
     public void Update() {
         ICard data = gameObject.GetComponent<ICard>();
         art.sprite = data.GetArtAsset();
-        title.text = data.GetTitle();
+        title.text = data.GetTitle().ToUpper();
     }
 }
 

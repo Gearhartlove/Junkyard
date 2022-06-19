@@ -1,9 +1,8 @@
-using System;
 using UnityEditor;
 using UnityEngine;
 
 public class Goblin : MonoBehaviour, ICard, ICreature {
-    private String title = "Goblin";
+    private string title = "Goblin";
     private float power = 1;
     private float toughness = 1;
 

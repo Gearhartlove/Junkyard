@@ -20,8 +20,7 @@ public class Card : MonoBehaviour {
 
         // add components to card
         CardDatabase.CardHash[currentCard](gameObject);
-        Debug.Log(currentCard.ToString());
-        
+
         // get components
         components = transform.GetComponent<Components>();
         components.Update();
@@ -31,6 +30,13 @@ public class Card : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        // if the card changes, update the card
+        if (currentCard != prevCard) {
+            // remove card data
+            Destroy(GetComponent(prevCard.ToString()));
+            // add card data
+            CardDatabase.CardHash[currentCard](gameObject);
+            prevCard = currentCard;
+            components.Update();
+        }
     }
 }
