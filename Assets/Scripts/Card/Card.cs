@@ -1,15 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class Card : MonoBehaviour {
     private Components components;
     private CardDatabase.CardName prevCard;
-
-
+    
     [FormerlySerializedAs("card")] [SerializeField]
     private CardDatabase.CardName currentCard;
+
+    public static GameObject Create(CardDatabase.CardName cardName) {
+        var templateCard = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TemplateCard.prefab", typeof(GameObject));
+        var createdCard = Instantiate(templateCard);
+
+        CardDatabase.CardHash[cardName](createdCard);
+        return createdCard;
+    }
 
     // Start is called before the first frame update
     void Start() {
@@ -39,4 +47,6 @@ public class Card : MonoBehaviour {
             components.Update();
         }
     }
+    
+    
 }
