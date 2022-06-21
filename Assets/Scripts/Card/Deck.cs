@@ -6,10 +6,8 @@ using UnityEngine;
 
 public class Deck : MonoBehaviour {
     private Stack<GameObject> deck;
-    public  Stack<GameObject> GetDeck => deck;
 
-    private int cardsInDeck = 0;
-    public int GetCardsInDeck => cardsInDeck;
+    public int CardCount => deck.Count;
 
     private void Awake() {
         deck = new Stack<GameObject>();
@@ -24,16 +22,22 @@ public class Deck : MonoBehaviour {
     }
 
     public void Push(GameObject card) {
-        cardsInDeck++;
         deck.Push(card);
     }
 
     public GameObject Pop() {
-        cardsInDeck--;
         return deck.Pop();
     }
 
     public bool IsEmpty() {
-        return cardsInDeck == 0;
+        return deck.Count == 0;
+    }
+
+    public GameObject[] AsArray() {
+        return deck.ToArray();
+    }
+
+    public void AssignDeck(GameObject[] deckArray) {
+        deck = new Stack<GameObject>(deckArray);
     }
 }
