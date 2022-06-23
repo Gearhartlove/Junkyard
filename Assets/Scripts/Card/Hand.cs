@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.Serialization;
@@ -22,11 +23,18 @@ public class Hand : MonoBehaviour
     }
 
     public void AddCardToHand(GameObject card) {
+        TakeOwnership(card);
         hand.Add(card);
+        PositionCards();
+    }
+
+    private void TakeOwnership(GameObject card) {
+        card.transform.parent = gameObject.transform;
     }
 
     public GameObject PlayCardFromHand(GameObject card) {
         hand.Remove(card);
+        PositionCards();
         return card;
     }
 
@@ -40,12 +48,20 @@ public class Hand : MonoBehaviour
 
     public bool IsFull() => CardCount == maxHandSize;
 
-    public int CardCount => hand.Count; 
-    
+    public int CardCount => hand.Count;
+
+    private const float CARD_SPACING = 1.0f;
+    private const float CARD_HEIGHT = -4.1f;
     /// <summary>
-    /// Repositions the players cards whenever a card is queried, removed, or drawn, or ... 
+    /// Whenever a card is added to your hand, insert it to the right of the most recently
+    /// added card;
     /// </summary>
-    public void UpdateCardScreenPositions() {
-       // TODO 
+    /// <param name="card"></param>
+    private void PositionCards() {
+        float startPos = CARD_SPACING * (CardCount-1) * -1; // multiply by negative one because hand starts on the left and goes right
+        for (int i = 0; i < CardCount; i++) {
+            float newXPos = startPos + (CARD_SPACING * i * 2);
+            Cards()[i].transform.position = new Vector3(newXPos, CARD_HEIGHT, 0);
+        }
     }
 }

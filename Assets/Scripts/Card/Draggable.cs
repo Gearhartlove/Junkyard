@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Networking.Match;
 
 public class Draggable : MonoBehaviour {
     private bool hover = false;
@@ -40,8 +41,8 @@ public class Draggable : MonoBehaviour {
     }
 
     private void OnMouseExit() {
-        if (!hover && !mouseDown) {
-        hover = false;
+        if (!mouseDown) { 
+            hover = false;
         }
     }
 }

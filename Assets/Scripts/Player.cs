@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
-{
+public class Player : MonoBehaviour {
+    // Variables
     private Hand hand;
     public Hand Hand => hand;
     
@@ -14,12 +14,38 @@ public class Player : MonoBehaviour
     
     // Start is called before the first frame update
     void Start() {
-        hand = gameObject.AddComponent<Hand>();
-        deck = gameObject.AddComponent<Deck>();
-        yard = gameObject.AddComponent<Deck>();
+        // hand = GameObject.Find("Hand").AddComponent<Hand>();
+        GameObject handGO = new GameObject("Hand");
+        hand = handGO.AddComponent<Hand>();
+        GameObject deckGO = new GameObject("Deck");
+        deck = deckGO.AddComponent<Deck>();
+        GameObject yardGO = new GameObject("Yard");
+        yard = yardGO.AddComponent<Deck>();
+
+        var parent = gameObject.transform;
+        handGO.transform.parent = parent;
+        deckGO.transform.parent = parent;
+        yardGO.transform.parent = parent;
     }
     
     // Player Actions ----------------------------------------------------------------------
+    
+    /// <summary>
+    /// Pops the top card of the deck and returns that card.
+    /// </summary>
+    /// <returns></returns>
+    public void Draw(int toDraw = 1) {
+        Debug.Log("Draw!");
+        for (; toDraw > 0 && deck.CardCount != 0; toDraw--) {
+            if (hand.IsFull()) {
+                Mill();
+            }
+            else {
+                var drawnCard = deck.Pop();
+                hand.AddCardToHand(drawnCard);                
+            }
+        }
+    }
     
     /// <summary>
     /// Move X cards from the top of the player's deck to the yard.
@@ -39,22 +65,6 @@ public class Player : MonoBehaviour
     public void AddCardToDeck(GameObject card) {
         deck.Push(card);
     }
-    
-    /// <summary>
-    /// Pops the top card of the deck and returns that card.
-    /// </summary>
-    /// <returns></returns>
-    public void Draw(int toDraw = 1) {
-        for (; toDraw > 0 && deck.CardCount != 0; toDraw--) {
-            if (hand.IsFull()) {
-                Mill();
-            }
-            else {
-                var drawnCard = deck.Pop();
-                hand.AddCardToHand(drawnCard);                
-            }
-        }
-    }
 
     // public void Scry(int x = 1) {
     //     for (; x > 0 && deck.CardCount != 0; x--) {
@@ -71,6 +81,7 @@ public class Player : MonoBehaviour
     /// source: https://www.quora.com/Are-there-any-better-shuffling-algorithms-than-Fisher–Yates-shuffle
     /// --> Eugene Yarovoi with great explanation 
     /// </summary>
+    /// TODO: test to see if the shuffle works
     public void Shuffle() {
         var deckArray = deck.AsArray(); 
         for (int i = 0; i < deck.CardCount; i++) {

@@ -11,6 +11,7 @@ public class CardDatabase : MonoBehaviour {
         CardHash = new Dictionary<CardName, Action<GameObject>>() {
             {CardName.Goblin, (card) => card.AddComponent<Goblin>()},
             {CardName.Grasslands, (card) => card.AddComponent<Grasslands>()},
+            {CardName.Troll, (card) => card.AddComponent<Troll>()},
         };
     }
     
@@ -38,6 +39,7 @@ public class CardDatabase : MonoBehaviour {
         Template,
         Goblin,
         Grasslands,
+        Troll,
         ScrapBomb,
     }
 }

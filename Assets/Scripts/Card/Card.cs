@@ -14,6 +14,7 @@ public class Card : MonoBehaviour {
     public static GameObject Create(CardDatabase.CardName cardName) {
         var templateCard = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TemplateCard.prefab", typeof(GameObject));
         var createdCard = Instantiate(templateCard);
+        createdCard.name = cardName.ToString();
 
         CardDatabase.CardHash[cardName](createdCard);
         return createdCard;
