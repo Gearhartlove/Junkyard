@@ -1,13 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using PlasticPipe.PlasticProtocol.Messages;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
-using UnityEngine.Serialization;
-
 
 public class Hand : MonoBehaviour {
     public GameObject this[int index] => hand[index];
@@ -38,13 +30,7 @@ public class Hand : MonoBehaviour {
         RestorePosition(card);
         MakeInspectable(card);
     }
-
-    // public void StopHolingCards() {
-    //     foreach (GameObject card in holding) {
-    //         RemoveHoldingCard(card);
-    //     }
-    // }
-
+    
     public void AddCardToHand(GameObject card) {
         TakeOwnership(card);
         MakeInspectable(card);
@@ -125,10 +111,6 @@ public class Hand : MonoBehaviour {
         card.AddComponent<Anchor>();
     }
     
-    // private static void RemoveAnchor(GameObject card) {
-    //     Destroy(card.AddComponent<Anchor>());
-    // }
-
     private static void RestorePosition(GameObject card) {
         var anchor = card.GetComponent<Anchor>();
         card.transform.position = anchor.GetAnchor;

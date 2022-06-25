@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
@@ -100,14 +98,4 @@ public class Player : MonoBehaviour {
         hand.Cards().Remove(card);
         yard.Push(card);
     }
-
-    /*
-    * The hand holds a card; holding a card is clicking on one card. So each card needs to be holdable.
-    * When you hold, you disable the Inspectable comp. and you store the cards position to return to, when
-    * it is no longer held. You enable dragging on the card, for however long it is held.
-    * When the card is unselected, the card returns to its initial position, and the original traits are restored.
-    */
-    // public void Hold(GameObject card) {
-    //     Hand.AddHoldingCard(card);
-    // }
 }

@@ -19,21 +19,14 @@ public class Deck : MonoBehaviour {
                 CardName.Grasslands,
                 CardName.Troll,
                 CardName.Goblin,
-                CardName.Grasslands,
-                CardName.Troll,
-                CardName.Goblin,
-                CardName.Grasslands,
-                CardName.Troll,
-                CardName.Goblin,
+                CardName.Template,
             };
 
             cardsInDeck
                 .AddRange(myCards);
         }
-
         deck = CreateDeck(cardsInDeck);
     }
-
 
     public GameObject Top() {
         return deck.Peek();
