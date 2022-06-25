@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Networking.Match;
 
 public class Draggable : MonoBehaviour {
     private bool hover = false;
@@ -9,7 +7,7 @@ public class Draggable : MonoBehaviour {
     private Vector3 offset;
     private Camera cam;
 
-    [SerializeField] private float speed;
+    private float speed = 15f;
 
     private void Awake() {
         cam = Camera.main;

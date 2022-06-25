@@ -69,7 +69,7 @@ public class Deck : MonoBehaviour {
             var card = Card.Create(cardName);
             // set the parent of teh card to the Deck GameObject
             card.transform.parent = gameObject.transform;
-            PositionOnScreen(card);
+            PositionCard(card);
             deck.Push(card);
         }
 
@@ -84,7 +84,7 @@ public class Deck : MonoBehaviour {
     /// added card;
     /// </summary>
     /// <param name="card"></param>
-    private void PositionOnScreen(GameObject card) {
+    private void PositionCard(GameObject card) {
         card.transform.position = new Vector3(START_X, START_Y, START_Z);
         START_Z -= 0.1f;
     }

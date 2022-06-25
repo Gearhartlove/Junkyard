@@ -6,12 +6,12 @@ public class Player : MonoBehaviour {
     // Variables
     private Hand hand;
     public Hand Hand => hand;
-    
+
     private Deck deck;
     public Deck Deck => deck;
     private Deck yard;
     public Deck Yard => yard;
-    
+
     // Start is called before the first frame update
     void Start() {
         // hand = GameObject.Find("Hand").AddComponent<Hand>();
@@ -27,9 +27,9 @@ public class Player : MonoBehaviour {
         deckGO.transform.parent = parent;
         yardGO.transform.parent = parent;
     }
-    
+
     // Player Actions ----------------------------------------------------------------------
-    
+
     /// <summary>
     /// Pops the top card of the deck and returns that card.
     /// </summary>
@@ -42,11 +42,11 @@ public class Player : MonoBehaviour {
             }
             else {
                 var drawnCard = deck.Pop();
-                hand.AddCardToHand(drawnCard);                
+                hand.AddCardToHand(drawnCard);
             }
         }
     }
-    
+
     /// <summary>
     /// Move X cards from the top of the player's deck to the yard.
     /// </summary>
@@ -83,7 +83,7 @@ public class Player : MonoBehaviour {
     /// </summary>
     /// TODO: test to see if the shuffle works
     public void Shuffle() {
-        var deckArray = deck.AsArray(); 
+        var deckArray = deck.AsArray();
         for (int i = 0; i < deck.CardCount; i++) {
             int pos = i + (Random.Range(0, Deck.CardCount - i));
             // swap
@@ -91,6 +91,7 @@ public class Player : MonoBehaviour {
             deckArray[pos] = deckArray[i];
             deckArray[i] = temp;
         }
+
         deck.AssignDeck(deckArray);
     }
 
@@ -99,4 +100,14 @@ public class Player : MonoBehaviour {
         hand.Cards().Remove(card);
         yard.Push(card);
     }
+
+    /*
+    * The hand holds a card; holding a card is clicking on one card. So each card needs to be holdable.
+    * When you hold, you disable the Inspectable comp. and you store the cards position to return to, when
+    * it is no longer held. You enable dragging on the card, for however long it is held.
+    * When the card is unselected, the card returns to its initial position, and the original traits are restored.
+    */
+    // public void Hold(GameObject card) {
+    //     Hand.AddHoldingCard(card);
+    // }
 }
