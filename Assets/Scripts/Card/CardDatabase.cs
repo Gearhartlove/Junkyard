@@ -9,6 +9,7 @@ public class CardDatabase : MonoBehaviour {
     static CardDatabase() {
         //initialize hash table 
         CardHash = new Dictionary<CardName, Action<GameObject>>() {
+            {CardName.Template, (card) => card.AddComponent<CreatureTemplate>()},
             {CardName.Goblin, (card) => card.AddComponent<Goblin>()},
             {CardName.Grasslands, (card) => card.AddComponent<Grasslands>()},
             {CardName.Troll, (card) => card.AddComponent<Troll>()},
@@ -32,7 +33,6 @@ public class CardDatabase : MonoBehaviour {
     public enum CardType {
         Creature,
         Scrap,
-        Template,
     }
     
     public enum CardName {
@@ -40,7 +40,6 @@ public class CardDatabase : MonoBehaviour {
         Goblin,
         Grasslands,
         Troll,
-        ScrapBomb,
     }
 }
 
