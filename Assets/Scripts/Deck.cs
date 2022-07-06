@@ -7,25 +7,33 @@ using static CardDatabase;
 
 public class Deck : MonoBehaviour {
     private Stack<GameObject> deck;
+    private CardDatabase cardDB;
 
     public int CardCount => deck.Count;
 
     private void Awake() {
         bool notTheYard = !gameObject.name.ToLower().Equals("yard");
-        List<CardName> cardsInDeck = new List<CardName>();
 
         if (notTheYard) {
-            CardName[] myCards = new[] {
-                CardName.Grasslands,
-                CardName.Troll,
-                CardName.Goblin,
-                CardName.Template,
-            };
-
-            cardsInDeck
-                .AddRange(myCards);
+            deck = new Stack<GameObject>();
+            AddCard("Goblin");
+            AddCard("Grasslands");
+            AddCard("Troll");
+            AddCard("Template");
         }
-        deck = CreateDeck(cardsInDeck);
+    }
+
+    /// <summary>
+    /// Adds a single card to a deck and returns the deck. Used as a builder pattern in the Deck.cs Awake method.
+    /// </summary>
+    /// <param name="cardName"></param>
+    /// <returns></returns>
+    private void AddCard(String cardName) {
+        var card = Card.Create(cardName);
+        // set the parent of the card to the Deck GameObject
+        card.transform.parent = gameObject.transform;
+        PositionCard(card);
+        deck.Push(card);
     }
 
     public GameObject Top() {
@@ -56,18 +64,18 @@ public class Deck : MonoBehaviour {
         deck = new Stack<GameObject>(deckArray);
     }
 
-    public Stack<GameObject> CreateDeck(List<CardName> cards) {
-        Stack<GameObject> deck = new Stack<GameObject>();
-        foreach (CardName cardName in cards) {
-            var card = Card.Create(cardName);
-            // set the parent of teh card to the Deck GameObject
-            card.transform.parent = gameObject.transform;
-            PositionCard(card);
-            deck.Push(card);
-        }
-
-        return deck;
-    }
+    // public Stack<GameObject> CreateDeck(List<CardName> cards) {
+    //     Stack<GameObject> deck = new Stack<GameObject>();
+    //     foreach (CardName cardName in cards) {
+    //         var card = Card.Create(cardName);
+    //         // set the parent of teh card to the Deck GameObject
+    //         card.transform.parent = gameObject.transform;
+    //         PositionCard(card);
+    //         deck.Push(card);
+    //     }
+    //
+    //     return deck;
+    // }
 
     private const float START_X = 6.57f;
     private const float START_Y = 0f;
