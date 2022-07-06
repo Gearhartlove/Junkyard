@@ -3,18 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CardDatabase : MonoBehaviour {
-    private static CardDatabase instance;
-    public static readonly Dictionary<CardName, Action<GameObject>> CardHash;
+    private static readonly Dictionary<Enum, Action<GameObject>> CreatureHash;
+    private static readonly Dictionary<Enum, Action<GameObject>> ScrapHash;
+
+    public static readonly Dictionary<CardType, Dictionary<Enum, Action<GameObject>>>  CardHash;
 
     static CardDatabase() {
-        //initialize hash table 
-        CardHash = new Dictionary<CardName, Action<GameObject>>() {
-            {CardName.Template, (card) => card.AddComponent<CreatureTemplate>()},
-            {CardName.Goblin, (card) => card.AddComponent<Goblin>()},
-            {CardName.Grasslands, (card) => card.AddComponent<Grasslands>()},
-            {CardName.Troll, (card) => card.AddComponent<Troll>()},
+        CreatureHash = new Dictionary<Enum, Action<GameObject>>() {
+            { CreatureCard.Goblin, (card) => card.AddComponent<Goblin>()},
+            { CreatureCard.Template, (card) => card.AddComponent<CreatureTemplate>()},
+            { CreatureCard.Grasslands, (card) => card.AddComponent<Grasslands>()},
+            { CreatureCard.Troll, (card) => card.AddComponent<Troll>()},
+        };
+
+        ScrapHash = new Dictionary<Enum, Action<GameObject>>() {};
+
+        CardHash = new Dictionary<CardType, Dictionary<Enum, Action<GameObject>>>() {
+            // creature dic
+            { CardType.Creature, CreatureHash },
+            { CardType.Scrap, ScrapHash },
         };
     }
+    
+    private static CardDatabase instance;
     
     public static CardDatabase Instance {
         get { return instance; }
@@ -34,13 +45,15 @@ public class CardDatabase : MonoBehaviour {
         Creature,
         Scrap,
     }
-    
-    public enum CardName {
+
+    public enum CreatureCard {
         Template,
         Goblin,
         Grasslands,
         Troll,
     }
+
+    public enum ScrapCard {}
 }
 
 
