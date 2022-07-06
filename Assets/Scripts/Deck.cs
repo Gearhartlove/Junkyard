@@ -7,19 +7,19 @@ using static CardDatabase;
 
 public class Deck : MonoBehaviour {
     private Stack<GameObject> deck;
-    private CardDatabase cardDB;
 
     public int CardCount => deck.Count;
 
     private void Awake() {
+        // todo: Create deck interface, for Yard and Deck and future deck-like collections (exile?) to differentiate themselves
         bool notTheYard = !gameObject.name.ToLower().Equals("yard");
 
         if (notTheYard) {
             deck = new Stack<GameObject>();
-            AddCard("Goblin");
-            AddCard("Grasslands");
-            AddCard("Troll");
-            AddCard("Template");
+            AddCard(CardType.Creature, CreatureCard.Goblin);
+            AddCard(CardType.Creature, CreatureCard.Grasslands);
+            AddCard(CardType.Creature, CreatureCard.Troll);
+            AddCard(CardType.Template, TemplateCard.Template);
         }
     }
 
@@ -28,8 +28,8 @@ public class Deck : MonoBehaviour {
     /// </summary>
     /// <param name="cardName"></param>
     /// <returns></returns>
-    private void AddCard(String cardName) {
-        var card = Card.Create(cardName);
+    private void AddCard(CardType cardType, Enum cardName) {
+        var card = Card.Create(cardType, cardName);
         // set the parent of the card to the Deck GameObject
         card.transform.parent = gameObject.transform;
         PositionCard(card);

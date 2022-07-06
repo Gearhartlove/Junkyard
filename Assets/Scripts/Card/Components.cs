@@ -7,7 +7,7 @@ public class Components : MonoBehaviour {
     private Collider2D collider;
     private Rigidbody2D rigidbody;
     private TextMeshProUGUI title;
-    private TextMeshProUGUI body;
+    private Transform body;
 
     // updated at runtime, all information below relies in this data
     private ICard cardData; 
@@ -20,8 +20,7 @@ public class Components : MonoBehaviour {
              .GetComponent<SpriteRenderer>();
          collider = transform.GetComponent<Collider2D>();
          rigidbody = transform.GetComponent<Rigidbody2D>();
-         body = gameObject.transform.Find("Canvas").Find("Body")
-             .GetComponent<TextMeshProUGUI>();
+         body = gameObject.transform.Find("Canvas").Find("Body");
          title = gameObject.transform.Find("Canvas").Find("Title")
              .GetComponent<TextMeshProUGUI>();
     }
@@ -32,7 +31,7 @@ public class Components : MonoBehaviour {
     public Collider2D GetCollider() => collider;
     public Rigidbody2D GetRigidBody() => rigidbody;
     public TextMeshProUGUI GetTitle() => title;
-    public TextMeshProUGUI GetBody() => body;
+    public Transform GetBody() => body;
     
     public void Update() {
         ICard data = gameObject.GetComponent<ICard>();
