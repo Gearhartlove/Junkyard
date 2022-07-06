@@ -27,6 +27,7 @@ public class CardDatabase : MonoBehaviour {
             // creature dic
             { CardType.Creature, CreatureHash },
             { CardType.Scrap, ScrapHash },
+            { CardType.Template, TemplateHash }
         };
     }
     
